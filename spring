@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# -------- Configuration --------
+APP_NAME="cicdakshat"
+JAR_FILE="target/cicdakshat-0.0.1-SNAPSHOT.jar"
+CONTAINER_PORT=8081   # Container internal port (can be any free port inside container)
+HOST_PORT=9090        # Port on host machine
+
+# -------- Step 1: Build Java App --------
+echo "Building Java application..."
+mvn clean package
+
+# -------- Step 2: Build Docker Image --------
+echo "Building Docker image..."
+docker build -t $APP_NAME .
+
+# -------- Step 3: Run Docker Container --------
+echo "Running Docker container on host port $HOST_PORT..."
+docker run -d -p $HOST_PORT:$CONTAINER_PORT $APP_NAME
+
+# -------- Step 4: Show Running Containers --------
+docker ps
+
+echo "Application should be accessible at http://localhost:$HOST_PORT"
