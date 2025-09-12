@@ -22,3 +22,17 @@ docker run -d -p $HOST_PORT:$CONTAINER_PORT $APP_NAME
 docker ps
 
 echo "Application should be accessible at http://localhost:$HOST_PORT"
+
+
+
+
+
+
+
+
+FROM openjdk:17-jdk-alpine
+WORKDIR /app
+COPY target/milestone-3-0.0.1-SNAPSHOT.jar app.jar
+EXPOSE 8081
+ENTRYPOINT ["java","-jar","/app/app.jar"]
+
